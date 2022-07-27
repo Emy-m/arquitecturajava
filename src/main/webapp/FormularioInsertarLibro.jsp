@@ -1,0 +1,36 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ page import="java.util.List" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Formulario Libro</title>
+</head>
+<body>
+<form id="form" action="InsertarLibro">
+    <fieldset>
+        <legend>Formulario alta libro</legend>
+
+        <label for="isbn">ISBN:</label> <input type="text" name="isbn" id="isbn"/><br/>
+
+        <label for="titulo">Titulo:</label> <input type="text" name="titulo" id="titulo"/><br/>
+
+        <label for="categoria">Categoria:</label> <select name="categoria" id="categoria">
+        <option value="seleccionar">Seleccionar</option>
+        <%
+            List<String> categorias = null;
+            categorias = (List<String>) request.getAttribute("listaDeCategorias");
+            for (String categoria : categorias) {
+        %>
+        <option value="<%=categoria%>"><%=categoria%>
+        </option>
+        <%}%>
+    </select><br> <input type="button" value="Insertar"
+                         onclick="validacion()"/>
+    </fieldset>
+</form>
+<a href="../index.jsp">Volver</a>
+<script type="text/javascript" src="../js/FormularioInsertarLibro.js"></script>
+</body>
+</html>

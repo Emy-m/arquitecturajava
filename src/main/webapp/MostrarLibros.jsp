@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ page import="com.arqjava.bo.Libro" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.arqjava.bo.Categoria" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,15 +13,14 @@
 <select name="categoria" id="categoria">
     <option value="seleccionar">Seleccionar</option>
     <%
-        List<String> categorias = null;
-        categorias = (List<String>) request.getAttribute("listaDeCategorias");
-        for (String categoria : categorias) {
+        List<Categoria> categorias = null;
+        categorias = (List<Categoria>) request.getAttribute("listaDeCategorias");
+        for (Categoria categoria : categorias) {
     %>
-    <option value="<%=categoria%>"><%=categoria%>
+    <option value="<%=categoria.getId()%>">
+        <%=categoria.getDescripcion()%>
     </option>
-    <%
-        }
-    %>
+    <%}%>
 </select>
 <button onclick="filtrar()">Filtrar</button>
 <br>
@@ -29,7 +29,7 @@
     for (Libro libro : libros) {%>
 <%=libro.getIsbn()%>
 <%=libro.getTitulo()%>
-<%=libro.getCategoria()%>
+<%=libro.getCategoria().getDescripcion()%>
 <a href="BorrarLibro?isbn=<%=libro.getIsbn()%>">Borrar</a>
 <a href="FormularioEditarLibro?isbn=<%=libro.getIsbn()%>">Editar</a>
 <br/>

@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.arqjava.bo.Libro" %>
+<%@ page import="com.arqjava.bo.Categoria" %>
 <%
     Libro libro = (Libro) request.getAttribute("libro");
 %>
@@ -19,16 +20,16 @@
         <p>
             <label for="categoria">Categoria :</label> <select name="categoria" id="categoria">
             <%
-                List<String> categorias = null;
-                categorias = (List<String>) request.getAttribute("categorias");
-                for (String categoria : categorias) {
+                List<Categoria> categorias = null;
+                categorias = (List<Categoria>) request.getAttribute("categorias");
+                for (Categoria categoria : categorias) {
                     if (libro.getCategoria().equals(categoria)) {
             %>
-            <option value="<%=categoria%>" selected="selected">
-                <%=categoria%>
+            <option value="<%=categoria.getId()%>" selected="selected">
+                <%=categoria.getDescripcion()%>
             </option>
             <%} else {%>
-            <option value="<%=categoria%>"><%=categoria%>
+            <option value="<%=categoria.getId()%>"><%=categoria.getDescripcion()%>
             </option>
             <%
                     }

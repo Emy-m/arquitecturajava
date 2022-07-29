@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.arqjava.bo.Categoria" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +20,12 @@
         <label for="categoria">Categoria:</label> <select name="categoria" id="categoria">
         <option value="seleccionar">Seleccionar</option>
         <%
-            List<String> categorias = null;
-            categorias = (List<String>) request.getAttribute("listaDeCategorias");
-            for (String categoria : categorias) {
+            List<Categoria> categorias = null;
+            categorias = (List<Categoria>) request.getAttribute("listaDeCategorias");
+            for (Categoria categoria : categorias) {
         %>
-        <option value="<%=categoria%>"><%=categoria%>
+        <option value="<%=categoria.getId()%>">
+            <%=categoria.getDescripcion()%>
         </option>
         <%}%>
     </select><br> <input type="button" value="Insertar"

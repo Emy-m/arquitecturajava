@@ -1,9 +1,5 @@
 package com.arqjava.bo;
 
-import com.arqjava.JPAHelper;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,6 +12,18 @@ public class Categoria {
     @OneToMany
     @JoinColumn(name = "categoria")
     private List<Libro> listaDeLibros;
+
+    public Categoria() {
+    }
+
+    public Categoria(String id) {
+        this.id = id;
+    }
+
+    public Categoria(String id, String descripcion) {
+        this(id);
+        this.descripcion = descripcion;
+    }
 
     public int hashCode() {
         return id.hashCode();
@@ -49,26 +57,5 @@ public class Categoria {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public static List<Categoria> buscarTodos() {
-        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-        EntityManager manager = factoriaSession.createEntityManager();
-        TypedQuery<Categoria> consulta = manager.createQuery("SELECT c FROM Categoria c", Categoria.class);
-        List<Categoria> listaDeCategorias = null;
-        listaDeCategorias = consulta.getResultList();
-        manager.close();
-        return listaDeCategorias;
-    }
-
-    public static Categoria buscar(String categoriaId) {
-        EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
-        EntityManager manager = factoriaSession.createEntityManager();
-        TypedQuery<Categoria> consulta =
-                manager.createQuery("SELECT c FROM Categoria c where c.id = :categoriaId", Categoria.class);
-        consulta.setParameter("categoriaId", categoriaId);
-        Categoria categoria = manager.find(Categoria.class, categoriaId);
-        manager.close();
-        return categoria;
     }
 }

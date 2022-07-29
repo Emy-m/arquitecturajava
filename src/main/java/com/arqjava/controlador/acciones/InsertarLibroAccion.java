@@ -2,6 +2,10 @@ package com.arqjava.controlador.acciones;
 
 import com.arqjava.bo.Categoria;
 import com.arqjava.bo.Libro;
+import com.arqjava.dao.CategoriaDAO;
+import com.arqjava.dao.LibroDAO;
+import com.arqjava.dao.jpa.CategoriaDAOJPA;
+import com.arqjava.dao.jpa.LibroDAOJPA;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,9 +15,14 @@ public class InsertarLibroAccion extends Accion {
         String isbn = request.getParameter("isbn");
         String titulo = request.getParameter("titulo");
         String categoriaId = request.getParameter("categoria");
-        Categoria categoria = Categoria.buscar(categoriaId);
+
+        CategoriaDAO categoriaDAO = new CategoriaDAOJPA();
+        Categoria categoria = categoriaDAO.buscar(categoriaId);
+
         Libro libro = new Libro(isbn, titulo, categoria);
-        libro.insertar();
+        LibroDAO libroDAO = new LibroDAOJPA();
+        libroDAO.insertar(libro);
+
         return "MostrarLibros";
     }
 }

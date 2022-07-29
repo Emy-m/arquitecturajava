@@ -1,5 +1,6 @@
 package com.arqjava.main;
 
+import com.arqjava.bo.Categoria;
 import com.arqjava.bo.HibernateHelper;
 import com.arqjava.bo.Libro;
 import org.hibernate.HibernateException;
@@ -9,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import javax.persistence.*;
 import java.util.List;
 
 public class Principal {
@@ -101,7 +103,7 @@ public class Principal {
         }
     }*/
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
         Session session = factoriaSession.openSession();
         List<Libro> listaDeLibros = session.createQuery("from Libro libro").list();
@@ -111,5 +113,26 @@ public class Principal {
             System.out.println(l.getCategoria().getDescripcion());
         }
         session.close();
-    }
+    }*/
+
+    /*public static void main(String args[]) {
+        *//*Crear un libro y mostrarlo con JPA*//*
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("arquitecturaJava");
+        EntityManager em = emf.createEntityManager();
+        Libro libro = new Libro("2", "java", Categoria.buscar("4"));
+        EntityTransaction tx = null;
+        tx = em.getTransaction();
+        tx.begin();
+        em.merge(libro);
+        tx.commit();
+
+        TypedQuery<Libro> consulta = em.createQuery("Select l from Libro l", Libro.class);
+        List<Libro> lista = consulta.getResultList();
+        em.close();
+        for (Libro l : lista) {
+            System.out.println(l.getTitulo());
+        }
+    }*/
+
+
 }

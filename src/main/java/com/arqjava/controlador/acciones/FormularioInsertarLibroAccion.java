@@ -1,7 +1,9 @@
 package com.arqjava.controlador.acciones;
 
 import com.arqjava.bo.Categoria;
-import com.arqjava.dao.jpa.CategoriaDAOJPA;
+import com.arqjava.dao.CategoriaDAO;
+import com.arqjava.dao.DAOFactory;
+import com.arqjava.dao.DAOFactoryAbstract;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +12,8 @@ import java.util.List;
 public class FormularioInsertarLibroAccion extends Accion {
     @Override
     public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
-        CategoriaDAOJPA categoriaDAO = new CategoriaDAOJPA();
+        DAOFactory factory = DAOFactoryAbstract.getInstance();
+        CategoriaDAO categoriaDAO = factory.getCategoriaDAO();
         List<Categoria> listaDeCategorias = categoriaDAO.buscarTodos();
         request.setAttribute("listaDeCategorias", listaDeCategorias);
         return "/FormularioInsertarLibro.jsp";
